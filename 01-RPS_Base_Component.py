@@ -65,8 +65,9 @@ rps_list = ["rock", "paper", "scissors",  "xxx"]
 # ask user for # of rounds then loop...
 
 rounds_played = 0
-choose_instruction = "Please choose rock (r), paper" \
-    "(p) or scissors (s)"
+
+rounds_lost = 0
+rounds_drawn = 0
 
 # Ask user # of rounds, <enter> for infinite mode
 rounds = check_rounds()
@@ -104,32 +105,48 @@ while end_game == "no":
 
     # RPS Component 3 - generate user choice and computer choice
     rps_list = ["rock", "paper", "scissors"]
-    comp_choice = random.choice(rps_list)
+    comp_choice = random.choice(rps_list[:-1])
 
     if user_choice == comp_choice:
-        result = "it's a tie"
+        result = "tie"
+        rounds_drawn += 1
+
     elif user_choice == "rock" and comp_choice == "scissors":
-        result = "you win (great job)"
+        result = "won"
     elif user_choice == "paper" and comp_choice == "rock":
-        result = "you win (great job)"
+        result = "won"
     elif user_choice == "scissors" and comp_choice == "paper":
-        result = "you win (great job)"
+        result = "won"
     else:
-        result = "you lost (better luck next time) "
+        result = "lost"
+        rounds_lost += 1
 
-    print("You chose {}, Computer chose {}."
-    "\nResults: {}".format(user_choice, comp_choice, result))
+    if result == "tie":
+        feedback = "it's a tie"
+    else:
+        feedback = "{} vs {} - you {}".format(user_choice,
+                                                  comp_choice, result)
 
-    if user_choice == "xxx":
-        break
-
-        # **** rest of loop / game ****
-
-    print("You chose {}".format(user_choice))
+    # Output results...
+    print(feedback)
 
     rounds_played += 1
 
-print("Thank you for playing")
+    # end game if requested # of rounds has been played
+    if rounds_played == rounds:
+        break
 
-# Ask user if thy want to see their game history.
+
+# Ask user if they want to see their game history.
 # If 'yes' show game game history
+
+# Show game statistics
+rounds_won = rounds_played - rounds_lost - rounds_drawn
+
+# End of game Statements
+print()
+print('****** End Game Summary ******')
+print("Won: {} \t|\t Lost: {} \t|\t Draw: "
+      "{}".format(rounds_won, rounds_lost, rounds_drawn))
+print()
+print("Thanks for playing")
