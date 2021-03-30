@@ -97,9 +97,18 @@ while end_game == "no":
     print()
     choose_error = "Please choose from rock " \
                    "paper / scissors (or xxx to quit)"
+
     # Ask user for choice and check it's valid
     user_choice = choice_checker(choose_instruction, rps_list,
                             choose_error)
+
+    print(heading)
+    choose = input("{} or 'xxx' to "
+                   "end: ".format(choose_instruction))
+
+    # End game if exit code is typed
+    if choose == "xxx":
+        break
 
     # compare choices
 
