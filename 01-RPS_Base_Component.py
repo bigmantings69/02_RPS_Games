@@ -56,7 +56,7 @@ def choice_checker(question, valid_list, error):
 
 # Lists of valid response
 yes_no_list = ["yes", "no"]
-rps_list = ["rock", "paper", "scissors",  "xxx"]
+rps_list = ["rock", "paper", "scissors", "xxx"]
 
 # Ask user if they have played before.
 # If 'yes', show instructions
@@ -91,7 +91,10 @@ while end_game == "no":
         if rounds_played == rounds:
             break
 
+    # Prints round info...
     print(heading)
+
+    # Get user choice...
     choose_instruction = "Please choose rock (r), paper (p)" \
                          " or scissors (s) or xxx to exit:"
     print()
@@ -102,34 +105,38 @@ while end_game == "no":
     user_choice = choice_checker(choose_instruction, rps_list,
                             choose_error)
 
-    print(heading)
-    choose = input("{} or 'xxx' to "
-                   "end: ".format(choose_instruction))
 
     # End game if exit code is typed
-    if choose == "xxx":
+    if user_choice == "xxx":
         break
 
     # compare choices
 
-    # RPS Component 3 - generate user choice and computer choice
-    rps_list = ["rock", "paper", "scissors"]
-    comp_choice = random.choice(rps_list[:-1])
+    # RPS Component 3 - generate computer choice by choosing from list,
+    # ignores last item in list as this is the exit code.
 
+    comp_choice = random.choice(rps_list[:-1])
+    print("Comp Choice", comp_choice)
+
+    # if the choices are the same, it's a tie...
     if user_choice == comp_choice:
         result = "tie"
         rounds_drawn += 1
 
+    # three ways to win...
     elif user_choice == "rock" and comp_choice == "scissors":
         result = "won"
     elif user_choice == "paper" and comp_choice == "rock":
         result = "won"
     elif user_choice == "scissors" and comp_choice == "paper":
         result = "won"
+
+    # If it's not a tie / win, it's a loss
     else:
         result = "lost"
         rounds_lost += 1
 
+    # Feedback depends on if it's a tie or not...
     if result == "tie":
         feedback = "it's a tie"
     else:
