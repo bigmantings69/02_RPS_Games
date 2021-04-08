@@ -2,7 +2,6 @@ import random
 
 # Function go here
 
-
 def check_rounds():
 
     while True:
@@ -59,8 +58,83 @@ yes_no_list = ["yes", "no"]
 rps_list = ["rock", "paper", "scissors", "xxx"]
 
 # Ask user if they have played before.
+
+
+def instructions():
+    print()
+    print("**** How to Play ****")
+    print()
+    print("The rule of this game is to pick the number of rounds that you want to play against the computer "
+          ", when the game starts pick from rock, paper and scissors or (r / p / s)"
+          ", or you can play the continues mode where you can play an unlimited amount and to stop you press xxx"
+          ", I hope you enjoy this game and good luck")
+    print()
+
 # If 'yes', show instructions
 
+
+def statement_generator(statement, decoration):
+
+    sides = decoration * 3
+
+    statement = "{} {} {}".format(sides, statement, sides)
+    top_bottom = decoration * len(statement)
+
+    print(top_bottom)
+    print(statement)
+    print(top_bottom)
+
+    return ""
+
+
+def yes_no(question):
+    valid = False
+    while not valid:
+        response = input(question).lower()
+
+        if response == "yes" or response == "y":
+            response = "yes"
+            return response
+
+        elif response == "no" or response == "n":
+            response = "no"
+            return response
+
+        else:
+            print("please enter yes or no")
+
+
+def statement_generator(outcome, prize_decoration):
+
+    sides = prize_decoration * 3
+
+    outcome = "{} {} {}".format(sides, outcome, sides)
+    top_bottom = prize_decoration * len(outcome)
+
+    print(top_bottom)
+    print(outcome)
+    print(top_bottom)
+
+    return ""
+
+
+def start():
+    print()
+    print("lets get started")
+    print()
+    prize_decoration = "-"
+    return""
+
+statement_generator("Welcome to Rock, Paper and scissors", "*")
+print()
+
+played_before = yes_no("Have you played the ""game before? ")
+
+if played_before == "no":
+    instructions()
+
+if played_before == "yes":
+    start()
 
 # ask user for # of rounds then loop...
 
@@ -117,7 +191,7 @@ while end_game == "no":
     # ignores last item in list as this is the exit code.
 
     comp_choice = random.choice(rps_list[:-1])
-    print("Comp Choice", comp_choice)
+    print("Computer Choice", comp_choice)
 
     # if the choices are the same, it's a tie...
     if user_choice == comp_choice:
@@ -127,19 +201,25 @@ while end_game == "no":
     # three ways to win...
     elif user_choice == "rock" and comp_choice == "scissors":
         result = "won"
+        prize_decoration = "!"
     elif user_choice == "paper" and comp_choice == "rock":
         result = "won"
+        prize_decoration = "!"
     elif user_choice == "scissors" and comp_choice == "paper":
         result = "won"
+        prize_decoration = "!"
 
     # If it's not a tie / win, it's a loss
     else:
         result = "lost"
+        prize_decoration = "-"
         rounds_lost += 1
 
     # Feedback depends on if it's a tie or not...
     if result == "tie":
+        prize_decoration = "="
         feedback = "it's a tie"
+
     else:
         feedback = "{} vs {} - you {}".format(user_choice,
                                                   comp_choice, result)
