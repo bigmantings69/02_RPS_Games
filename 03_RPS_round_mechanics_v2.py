@@ -2,25 +2,25 @@
 
 
 def check_rounds():
-    if __name__ == '__main__':
-        while True:
-            response = input("How many rounds: ")
 
-            round_error = "Please type either <enter> " \
-                        "or an integer that is more than 0"
-            if response != "":
-                try:
-                    response = int(response)
+    while True:
+        response = input("How many rounds: ")
 
-                    if response <1:
-                        print(round_error)
-                        continue
+        round_error = "Please type either <enter> " \
+                    "or an integer that is more than 0"
+        if response != "":
+            try:
+                response = int(response)
 
-                except ValueError:
+                if response <1:
                     print(round_error)
                     continue
 
-            return response
+            except ValueError:
+                print(round_error)
+                continue
+
+        return response
 
 
 # Main routine goes here...

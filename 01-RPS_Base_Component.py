@@ -64,10 +64,72 @@ rps_list = ["rock", "paper", "scissors", "xxx"]
 
 # ask user for # of rounds then loop...
 
-rounds_played = 0
+game_summary = []
 
+rounds_played = 0
 rounds_lost = 0
 rounds_drawn = 0
+
+# Ask user # of rounds, <enter> for infinite mode
+rounds = check_rounds()
+choose_instruction = "Please choose rock (r), paper" \
+    "(p) or scissors (s): "
+
+end_game = "no"
+while end_game == "no":
+
+    rounds_played += 1
+
+    # Rounds Heading
+    print()
+    if rounds == "":
+        heading = "Continues Mode: Rounds {}".format(rounds_played)
+        print(heading)
+        choose = input("{} or 'xxx' to end: ".format(choose_instruction))
+        if choose == "xxx":
+            break
+    else:
+        heading = "Rounds {} of {}".format(rounds_played, rounds)
+        print(heading)
+        choose= input(choose_instruction)
+        if rounds_played == rounds:
+            end_game = "yes"
+
+    result = input("choose result: ")
+
+    # outcome = "Round {}: {}".format(item, result)
+
+    if result == "lost":
+        rounds_lost += 1
+    elif result == "tie":
+        rounds_drawn += 1
+
+    game_summary.append(result)
+
+rounds_won = rounds_played - rounds_lost - rounds_drawn
+
+# **** Calculate Game Stats ****
+percent_win = rounds_won / rounds_played * 100
+percent_lose = rounds_lost / rounds_played * 100
+percent_tie = rounds_drawn / rounds_played * 100
+
+print()
+print("***** Game History *****")
+for game in game_summary:
+    print(game)
+
+print()
+
+# display game stats with % values to the nearest whole number
+print("******* Game statistics *******")
+print("Win: {}, ({:.0f}%)\nLoss: {}, "
+      "({:.0f}%)\nTie: {}, ({:.0f}%)".format(rounds_won,
+                                             percent_win,
+                                             rounds_lost,
+                                             percent_lose,
+                                             rounds_drawn,
+                                             percent_tie))
+
 
 # Ask user # of rounds, <enter> for infinite mode
 rounds = check_rounds()
@@ -105,8 +167,8 @@ while end_game == "no":
     user_choice = choice_checker(choose_instruction, rps_list,
                             choose_error)
 
-
     # End game if exit code is typed
+
     if user_choice == "xxx":
         break
 
